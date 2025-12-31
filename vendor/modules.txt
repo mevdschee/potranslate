@@ -1,0 +1,48 @@
+# github.com/bregydoc/gtranslate v0.0.0-20200913051839-1bd07f6c1fc5
+## explicit
+github.com/bregydoc/gtranslate
+# github.com/mitchellh/colorstring v0.0.0-20190213212951-d06e56a500db
+## explicit
+github.com/mitchellh/colorstring
+# github.com/rivo/uniseg v0.4.4
+## explicit; go 1.18
+github.com/rivo/uniseg
+# github.com/robertkrimen/otto v0.5.1
+## explicit; go 1.22
+github.com/robertkrimen/otto
+github.com/robertkrimen/otto/ast
+github.com/robertkrimen/otto/dbg
+github.com/robertkrimen/otto/file
+github.com/robertkrimen/otto/parser
+github.com/robertkrimen/otto/registry
+github.com/robertkrimen/otto/token
+# github.com/schollz/progressbar/v3 v3.14.1
+## explicit; go 1.13
+github.com/schollz/progressbar/v3
+# golang.org/x/sys v0.15.0
+## explicit; go 1.18
+golang.org/x/sys/plan9
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# golang.org/x/term v0.15.0
+## explicit; go 1.18
+golang.org/x/term
+# golang.org/x/text v0.32.0
+## explicit; go 1.24.0
+golang.org/x/text/feature/plural
+golang.org/x/text/internal
+golang.org/x/text/internal/catmsg
+golang.org/x/text/internal/format
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/number
+golang.org/x/text/internal/stringset
+golang.org/x/text/internal/tag
+golang.org/x/text/language
+golang.org/x/text/message
+golang.org/x/text/message/catalog
+golang.org/x/text/number
+# gopkg.in/sourcemap.v1 v1.0.5
+## explicit
+gopkg.in/sourcemap.v1
+gopkg.in/sourcemap.v1/base64vlq
