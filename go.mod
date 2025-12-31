@@ -1,4 +1,4 @@
-module github.com/maurits/potranslate
+module github.com/mevdschee/potranslate
 
 go 1.24.0
 
