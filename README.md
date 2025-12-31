@@ -31,7 +31,7 @@ strings in PO (Portable Object) translation files using Google Translate.
 ### Build from Source
 
 ```bash
-git clone https://github.com/maurits/potranslate.git
+git clone https://github.com/mevdschee/potranslate.git
 cd potranslate
 go build
 ```
@@ -39,7 +39,7 @@ go build
 Or install directly:
 
 ```bash
-go install github.com/maurits/potranslate@latest
+go install github.com/mevdschee/potranslate@latest
 ```
 
 ## Usage
