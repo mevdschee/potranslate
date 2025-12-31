@@ -1,4 +1,4 @@
-# potranslate (PO Translate)
+# potranslate
 
 A command-line tool written in Go that automatically translates missing or empty
 strings in PO (Portable Object) translation files using Google Translate.
