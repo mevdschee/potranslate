@@ -3,6 +3,9 @@
 A command-line tool written in Go that automatically translates missing or empty
 strings in PO (Portable Object) translation files using Google Translate.
 
+Read my blog:
+https://www.tqdev.com/2025-translating-gettext-po-files-google-translate/
+
 ## Features
 
 - **Automatic Translation**: Translates missing/empty entries in PO files using
