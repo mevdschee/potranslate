@@ -55,8 +55,8 @@ potranslate [options] <directory>
 - `--fast`: Use 0.1 second delay between translations (default: 1 second)
 - `--rewrite`: Rewrite entire PO file from POT, keeping existing translations
   but removing obsolete entries
-- `--add-lang <code>`: Create a new PO file for the specified language (2-letter
-  code) from POT and translate it
+- `--add-lang <code>`: Create a new PO file for the language (2-letter code)
+  from POT and translate it
 - `--source-lang <lang>`: Source language code (required if not in POT metadata,
   e.g., `en`, `es`, `fr`)
 - `--domain <name>`: Translation domain name (default: `"default"`)
