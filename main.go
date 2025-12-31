@@ -86,7 +86,7 @@ func main() {
 	fmt.Printf("POT file: %s\n", potFile)
 
 	// Parse POT file and get source language
-	potEntries, detectedSourceLang, err := parsePOTFile(potFile)
+	potEntries, detectedSourceLang, err := parsePotFile(potFile)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error parsing POT file: %v\n", err)
 		os.Exit(1)
@@ -101,7 +101,7 @@ func main() {
 		}
 		finalSourceLang = sourceLang
 		// Update POT file with source language
-		if err := updatePOTLanguage(potFile, finalSourceLang); err != nil {
+		if err := updatePotLanguage(potFile, finalSourceLang); err != nil {
 			fmt.Fprintf(os.Stderr, "Warning: Could not update POT file metadata: %v\n", err)
 		} else {
 			fmt.Printf("Updated POT file with source language: %s\n", finalSourceLang)
@@ -119,27 +119,27 @@ func main() {
 			os.Exit(1)
 		}
 
-		newPOFile := filepath.Join(directory, fmt.Sprintf("%s_%s.po", domain, addLang))
+		newPoFile := filepath.Join(directory, fmt.Sprintf("%s_%s.po", domain, addLang))
 
 		// Check if file already exists
-		if _, err := os.Stat(newPOFile); err == nil {
-			fmt.Fprintf(os.Stderr, "Error: PO file '%s' already exists\n", newPOFile)
+		if _, err := os.Stat(newPoFile); err == nil {
+			fmt.Fprintf(os.Stderr, "Error: PO file '%s' already exists\n", newPoFile)
 			os.Exit(1)
 		}
 
-		fmt.Printf("\nCreating new language file: %s\n", filepath.Base(newPOFile))
+		fmt.Printf("\nCreating new language file: %s\n", filepath.Base(newPoFile))
 
 		// Copy POT to new PO file
-		if err := copyPOTToPO(potFile, newPOFile, addLang); err != nil {
+		if err := copyPotToPo(potFile, newPoFile, addLang); err != nil {
 			fmt.Fprintf(os.Stderr, "Error creating PO file: %v\n", err)
 			os.Exit(1)
 		}
 
-		fmt.Printf("Created: %s\n", filepath.Base(newPOFile))
+		fmt.Printf("Created: %s\n", filepath.Base(newPoFile))
 		fmt.Printf("Translating to: %s\n\n", addLang)
 
 		// Translate the new file
-		translated, err := translatePOFile(newPOFile, potEntries, finalSourceLang, addLang, delay)
+		translated, err := translatePoFile(newPoFile, potEntries, finalSourceLang, addLang, delay)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error translating new PO file: %v\n", err)
 			os.Exit(1)
@@ -150,7 +150,7 @@ func main() {
 	}
 
 	// Find all PO files for this domain
-	poFiles, err := findPOFiles(directory, domain)
+	poFiles, err := findPoFiles(directory, domain)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error finding PO files: %v\n", err)
 		os.Exit(1)
@@ -182,9 +182,9 @@ func main() {
 
 		var translated int
 		if rewriteMode {
-			translated, err = rewritePOFile(poFile, potEntries, finalSourceLang, targetLang, delay)
+			translated, err = rewritePoFile(poFile, potEntries, finalSourceLang, targetLang, delay)
 		} else {
-			translated, err = translatePOFile(poFile, potEntries, finalSourceLang, targetLang, delay)
+			translated, err = translatePoFile(poFile, potEntries, finalSourceLang, targetLang, delay)
 		}
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error processing %s: %v\n", filepath.Base(poFile), err)
@@ -230,7 +230,7 @@ func printHelp() {
 	fmt.Println("  potranslate --add-lang ja --fast ./locales")
 }
 
-func findPOFiles(directory, domain string) ([]string, error) {
+func findPoFiles(directory, domain string) ([]string, error) {
 	// Only support underscore naming: domain_*.po
 	pattern := filepath.Join(directory, domain+"_*.po")
 	matches, err := filepath.Glob(pattern)
@@ -246,7 +246,7 @@ type POEntry struct {
 	Comments []string
 }
 
-func parsePOTFile(potFile string) (map[string]POEntry, string, error) {
+func parsePotFile(potFile string) (map[string]POEntry, string, error) {
 	file, err := os.Open(potFile)
 	if err != nil {
 		return nil, "", err
@@ -394,7 +394,7 @@ func getTargetLanguage(poFile string) (string, error) {
 	return "", fmt.Errorf("could not determine target language")
 }
 
-func translatePOFile(poFile string, potEntries map[string]POEntry, sourceLang, targetLang string, delay time.Duration) (int, error) {
+func translatePoFile(poFile string, potEntries map[string]POEntry, sourceLang, targetLang string, delay time.Duration) (int, error) {
 	// Read PO file
 	content, err := os.ReadFile(poFile)
 	if err != nil {
@@ -671,9 +671,9 @@ func translatePOFile(poFile string, potEntries map[string]POEntry, sourceLang, t
 	return translatedCount, nil
 }
 
-// rewritePOFile completely rewrites a PO file based on the POT file structure,
+// rewritePoFile completely rewrites a PO file based on the POT file structure,
 // maintaining existing translations but removing obsolete entries and their comments.
-func rewritePOFile(poFile string, potEntries map[string]POEntry, sourceLang, targetLang string, delay time.Duration) (int, error) {
+func rewritePoFile(poFile string, potEntries map[string]POEntry, sourceLang, targetLang string, delay time.Duration) (int, error) {
 	// Read existing PO file to get current translations
 	existingTranslations := make(map[string]string)
 
@@ -903,7 +903,7 @@ func rewritePOFile(poFile string, potEntries map[string]POEntry, sourceLang, tar
 	return translatedCount, nil
 }
 
-func updatePOTLanguage(potFile, language string) error {
+func updatePotLanguage(potFile, language string) error {
 	content, err := os.ReadFile(potFile)
 	if err != nil {
 		return err
@@ -945,8 +945,8 @@ func updatePOTLanguage(potFile, language string) error {
 	return os.WriteFile(potFile, []byte(newContent), 0644)
 }
 
-// copyPOTToPO creates a new PO file from the POT template with the specified language
-func copyPOTToPO(potFile, newPOFile, targetLang string) error {
+// copyPotToPo creates a new PO file from the POT template with the specified language
+func copyPotToPo(potFile, newPoFile, targetLang string) error {
 	// Read POT file
 	content, err := os.ReadFile(potFile)
 	if err != nil {
@@ -994,7 +994,7 @@ func copyPOTToPO(potFile, newPOFile, targetLang string) error {
 
 	// Write to new PO file
 	newContent := strings.Join(newLines, "\n")
-	if err := os.WriteFile(newPOFile, []byte(newContent), 0644); err != nil {
+	if err := os.WriteFile(newPoFile, []byte(newContent), 0644); err != nil {
 		return fmt.Errorf("failed to write PO file: %v", err)
 	}
 

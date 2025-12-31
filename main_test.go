@@ -104,7 +104,7 @@ func TestEscapeString(t *testing.T) {
 	}
 }
 
-func TestParsePOTFile(t *testing.T) {
+func TestParsePotFile(t *testing.T) {
 	tempDir := t.TempDir()
 	potFile := filepath.Join(tempDir, "test.pot")
 
@@ -133,9 +133,9 @@ msgstr ""
 		t.Fatalf("Failed to create test POT file: %v", err)
 	}
 
-	entries, sourceLang, err := parsePOTFile(potFile)
+	entries, sourceLang, err := parsePotFile(potFile)
 	if err != nil {
-		t.Fatalf("parsePOTFile() error = %v", err)
+		t.Fatalf("parsePotFile() error = %v", err)
 	}
 
 	if sourceLang != "en" {
@@ -159,7 +159,7 @@ msgstr ""
 	}
 }
 
-func TestParsePOTFileNoLanguage(t *testing.T) {
+func TestParsePotFileNoLanguage(t *testing.T) {
 	tempDir := t.TempDir()
 	potFile := filepath.Join(tempDir, "test.pot")
 
@@ -177,9 +177,9 @@ msgstr ""
 		t.Fatalf("Failed to create test POT file: %v", err)
 	}
 
-	_, sourceLang, err := parsePOTFile(potFile)
+	_, sourceLang, err := parsePotFile(potFile)
 	if err != nil {
-		t.Fatalf("parsePOTFile() error = %v", err)
+		t.Fatalf("parsePotFile() error = %v", err)
 	}
 
 	if sourceLang != "" {
@@ -260,7 +260,7 @@ msgstr ""
 	}
 }
 
-func TestFindPOFiles(t *testing.T) {
+func TestFindPoFiles(t *testing.T) {
 	tempDir := t.TempDir()
 
 	testFiles := []string{
@@ -307,9 +307,9 @@ func TestFindPOFiles(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			files, err := findPOFiles(tempDir, tt.domain)
+			files, err := findPoFiles(tempDir, tt.domain)
 			if err != nil {
-				t.Fatalf("findPOFiles() error = %v", err)
+				t.Fatalf("findPoFiles() error = %v", err)
 			}
 
 			if len(files) != tt.expectedCount {
@@ -332,7 +332,7 @@ func TestFindPOFiles(t *testing.T) {
 	}
 }
 
-func TestUpdatePOTLanguage(t *testing.T) {
+func TestUpdatePotLanguage(t *testing.T) {
 	tests := []struct {
 		name        string
 		content     string
@@ -369,7 +369,7 @@ msgstr ""
 				t.Fatalf("Failed to create test POT file: %v", err)
 			}
 
-			err := updatePOTLanguage(potFile, tt.language)
+			err := updatePotLanguage(potFile, tt.language)
 			if tt.expectError {
 				if err == nil {
 					t.Error("Expected error, got nil")
@@ -379,7 +379,7 @@ msgstr ""
 					t.Errorf("Unexpected error: %v", err)
 				}
 
-				_, sourceLang, err := parsePOTFile(potFile)
+				_, sourceLang, err := parsePotFile(potFile)
 				if err != nil {
 					t.Fatalf("Failed to parse updated POT file: %v", err)
 				}
@@ -427,16 +427,16 @@ msgstr "Hola"
 	}
 
 	// Parse POT file
-	potEntries, _, err := parsePOTFile(potFile)
+	potEntries, _, err := parsePotFile(potFile)
 	if err != nil {
 		t.Fatalf("Failed to parse POT file: %v", err)
 	}
 
-	// Call translatePOFile (which should add missing entries)
+	// Call translatePoFile (which should add missing entries)
 	// We use a very short delay and will interrupt to avoid actual translation
-	_, err = translatePOFile(poFile, potEntries, "en", "es", 0)
+	_, err = translatePoFile(poFile, potEntries, "en", "es", 0)
 	if err != nil {
-		t.Fatalf("translatePOFile failed: %v", err)
+		t.Fatalf("translatePoFile failed: %v", err)
 	}
 
 	// Read the updated PO file
@@ -506,15 +506,15 @@ msgstr "Primero"
 	}
 
 	// Parse POT file
-	potEntries, _, err := parsePOTFile(potFile)
+	potEntries, _, err := parsePotFile(potFile)
 	if err != nil {
 		t.Fatalf("Failed to parse POT file: %v", err)
 	}
 
-	// Call translatePOFile to add missing entries
-	_, err = translatePOFile(poFile, potEntries, "en", "es", 0)
+	// Call translatePoFile to add missing entries
+	_, err = translatePoFile(poFile, potEntries, "en", "es", 0)
 	if err != nil {
-		t.Fatalf("translatePOFile failed: %v", err)
+		t.Fatalf("translatePoFile failed: %v", err)
 	}
 
 	// Read the updated PO file
@@ -542,7 +542,7 @@ msgstr "Primero"
 	}
 }
 
-func TestCopyPOTToPO(t *testing.T) {
+func TestCopyPotToPo(t *testing.T) {
 	tempDir := t.TempDir()
 
 	tests := []struct {
@@ -608,11 +608,11 @@ msgstr ""
 				t.Fatalf("Failed to create POT file: %v", err)
 			}
 
-			newPOFile := filepath.Join(tempDir, tt.name+"-"+tt.targetLang+".po")
+			newPoFile := filepath.Join(tempDir, tt.name+"-"+tt.targetLang+".po")
 
-			err := copyPOTToPO(potFile, newPOFile, tt.targetLang)
+			err := copyPotToPo(potFile, newPoFile, tt.targetLang)
 			if (err != nil) != tt.wantError {
-				t.Errorf("copyPOTToPO() error = %v, wantError %v", err, tt.wantError)
+				t.Errorf("copyPotToPo() error = %v, wantError %v", err, tt.wantError)
 				return
 			}
 
@@ -621,13 +621,13 @@ msgstr ""
 			}
 
 			// Verify the new PO file was created
-			if _, err := os.Stat(newPOFile); os.IsNotExist(err) {
+			if _, err := os.Stat(newPoFile); os.IsNotExist(err) {
 				t.Error("New PO file was not created")
 				return
 			}
 
 			// Read and verify content
-			content, err := os.ReadFile(newPOFile)
+			content, err := os.ReadFile(newPoFile)
 			if err != nil {
 				t.Fatalf("Failed to read new PO file: %v", err)
 			}
@@ -693,12 +693,12 @@ msgstr ""
 	}
 }
 
-func TestCopyPOTToPOFileErrors(t *testing.T) {
+func TestCopyPotToPoFileErrors(t *testing.T) {
 	tempDir := t.TempDir()
 
 	tests := []struct {
 		name      string
-		setupFunc func() (potFile, newPOFile string)
+		setupFunc func() (potFile, newPoFile string)
 		wantError bool
 	}{
 		{
@@ -722,11 +722,11 @@ func TestCopyPOTToPOFileErrors(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			potFile, newPOFile := tt.setupFunc()
+			potFile, newPoFile := tt.setupFunc()
 
-			err := copyPOTToPO(potFile, newPOFile, "es")
+			err := copyPotToPo(potFile, newPoFile, "es")
 			if (err != nil) != tt.wantError {
-				t.Errorf("copyPOTToPO() error = %v, wantError %v", err, tt.wantError)
+				t.Errorf("copyPotToPo() error = %v, wantError %v", err, tt.wantError)
 			}
 		})
 	}
