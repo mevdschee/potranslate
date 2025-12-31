@@ -5,23 +5,22 @@ strings in PO (Portable Object) translation files using Google Translate.
 
 ## Features
 
-- 🌍 **Automatic Translation**: Translates missing/empty entries in PO files
-  using Google Translate
-- ➕ **Auto-Sync**: Automatically adds missing POT entries to PO files with
-  their comments
-- 🔄 **Rewrite Mode**: Completely rebuild PO files from POT template while
+- **Automatic Translation**: Translates missing/empty entries in PO files using
+  Google Translate
+- **Auto-Sync**: Automatically adds missing POT entries to PO files with their
+  comments
+- **Rewrite Mode**: Completely rebuild PO files from POT template while
   preserving translations
-- 🆕 **Add Language Mode**: Create new PO files for additional languages from
-  POT template and translate automatically
-- 🔍 **Language Detection**: Auto-detects source language from POT metadata or
+- **Add Language Mode**: Create new PO files for additional languages from POT
+  template and translate automatically
+- **Language Detection**: Auto-detects source language from POT metadata or
   accepts via command-line
-- 📊 **Progress Tracking**: Real-time progress bar with completion percentage
-- ⚡ **Rate Limiting**: Configurable delay between translations (1s default,
-  0.1s with `--fast`)
-- 🎯 **Domain Support**: Handle multiple translation domains in different POT
-  files
-- 🛑 **Graceful Interruption**: Ctrl-C saves progress and exits cleanly
-- 📝 **Metadata Updates**: Writes source language to POT metadata when provided
+- **Progress Tracking**: Real-time progress bar with completion percentage
+- **Rate Limiting**: Configurable delay between translations (1s default, 0.1s
+  with `--fast`)
+- **Domain Support**: Handle multiple translation domains in different POT files
+- **Graceful Interruption**: Ctrl-C saves progress and exits cleanly
+- **Metadata Updates**: Writes source language to POT metadata when provided
 
 ## Installation
 
