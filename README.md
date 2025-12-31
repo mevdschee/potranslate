@@ -12,7 +12,7 @@ strings in PO (Portable Object) translation files using Google Translate.
 - **Rewrite Mode**: Completely rebuild PO files from POT template while
   preserving translations
 - **Add Language Mode**: Create new PO files for additional languages from POT
-  template and translate automatically
+  template
 - **Language Detection**: Auto-detects source language from POT metadata or
   accepts via command-line
 - **Progress Tracking**: Real-time progress bar with completion percentage
